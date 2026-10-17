@@ -1,0 +1,10 @@
+import express from "express";
+import { createMediaReport, getMyMediaReports, getPendingMediaReports, reviewMediaReport, getPressFeed } from "../controllers/mediaController.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
+const router = express.Router();
+router.post("/reports", protect, createMediaReport);
+router.get("/my-reports", protect, getMyMediaReports);
+router.get("/pending", protect, authorize("admin"), getPendingMediaReports);
+router.patch("/:id/review", protect, authorize("admin"), reviewMediaReport);
+router.get("/press-feed", protect, authorize("admin"), getPressFeed);
+export default router;

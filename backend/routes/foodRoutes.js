@@ -1,0 +1,11 @@
+import express from "express";
+import { createFoodDonation, getFoodDonations, getMyFoodDonations, updateDonationStatus, deleteFoodDonation } from "../controllers/foodController.js";
+import { protect } from "../middleware/authMiddleware.js";
+const router = express.Router();
+router.get("/", getFoodDonations);
+router.get("/all", getFoodDonations);
+router.post("/donate", protect, createFoodDonation);
+router.get("/my-donations", protect, getMyFoodDonations);
+router.patch("/:id/status", protect, updateDonationStatus);
+router.delete("/:id", protect, deleteFoodDonation);
+export default router;
